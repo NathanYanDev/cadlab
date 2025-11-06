@@ -14,16 +14,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import type { Room } from "@/lib/types";
+import type { Lab, Room } from "@/lib/types";
 
 interface RoomModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (room: Room) => void;
   room: Room | null;
+  lab: Lab | null;
 }
 
-export function RoomModal({ isOpen, onClose, onSave, room }: RoomModalProps) {
+export function RoomModal({
+  isOpen,
+  onClose,
+  onSave,
+  room,
+  lab,
+}: RoomModalProps) {
   const [formData, setFormData] = useState({
     name: "",
     capacity: "",
@@ -50,10 +57,10 @@ export function RoomModal({ isOpen, onClose, onSave, room }: RoomModalProps) {
     e.preventDefault();
 
     const roomData: Room = {
-      id: room?.id || Date.now().toString(),
       name: formData.name,
       capacity: Number.parseInt(formData.capacity),
       description: formData.description,
+      labId: lab?.id!,
     };
 
     onSave(roomData);

@@ -14,13 +14,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import type { Laboratory } from "@/lib/types";
+import type { Lab } from "@/lib/types";
 
 interface LabModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (lab: Laboratory) => void;
-  lab: Laboratory | null;
+  onSave: (lab: Lab) => void;
+  lab: Lab | null;
 }
 
 export function LabModal({ isOpen, onClose, onSave, lab }: LabModalProps) {
@@ -52,8 +52,7 @@ export function LabModal({ isOpen, onClose, onSave, lab }: LabModalProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const labData: Laboratory = {
-      id: lab?.id || Date.now().toString(),
+    const labData: Lab = {
       name: formData.name,
       capacity: Number.parseInt(formData.capacity),
       location: formData.location,
