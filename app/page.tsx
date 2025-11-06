@@ -15,8 +15,11 @@ import type { Lab } from "@/lib/types";
 import { Navbar } from "@/components/navbar";
 import { useAuth } from "@/contexts/AuthContext";
 import { useApiService } from "@/lib/api";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/router";
 
 export default function HomePage() {
+  const router = useRouter();
   const [labs, setLabs] = useState<Lab[]>([]);
   const [stats, setStats] = useState({
     totalLabs: 0,
@@ -31,7 +34,11 @@ export default function HomePage() {
       fetchDashboardData();
       fetchLabs();
     }
-  }, [user, token]);
+
+    if (!user || !token) {
+      router.push("/login");
+    }
+  }, [user, token, router]);
 
   const fetchLabs = async () => {
     if (!token) return;
@@ -68,16 +75,6 @@ export default function HomePage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Carregando...</p>
-      </div>
-    );
-  }
-
-  if (!user || !token) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <p className="text-foreground text-lg">
-          Por favor, faça login para acessar o sistema.
-        </p>
       </div>
     );
   }
