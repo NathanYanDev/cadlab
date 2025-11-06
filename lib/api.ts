@@ -1,7 +1,8 @@
 import { useAuth } from "@/contexts/AuthContext";
 import type { User, Lab, Room, Booking } from "./types";
 
-const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:3001";
+const API_BASE_URL =
+  "https://cadlab-api-c7dbcre5czgvbzcj.brazilsouth-01.azurewebsites.net";
 
 class ApiService {
   private baseUrl: string;
